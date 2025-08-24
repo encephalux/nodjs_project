@@ -28,6 +28,6 @@ echo "-- Copy assets"
 test -d ./assets && cp -R ./assets $PROD_DIR
 
 echo "-- Copy app.js env.js package.json server.js"
-cp -R app.js env.js package.json server.js $PROD_DIR
+cp -R app.js package.json server.js $PROD_DIR
 
 echo "Deployment succeeded!"
