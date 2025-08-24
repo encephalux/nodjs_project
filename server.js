@@ -1,6 +1,6 @@
 const http = require("http");
-require("./env");
 require("./config");
+const env = require("@encephalux/env");
 const app = require("./app");
 
 // { Error logger }
@@ -10,7 +10,7 @@ const error_handler = _error => {
     if(_error.code === "EACCESS") console.log("Requires high privileges");
     else if(_error.code === "EADDRINUSE") console.log("Address already in use ("+(typeof ADDRESS === "string" ? ADDRESS:"any")+")");
 
-    if(process.env.RUN_MODE === "development") throw _error;
+    if((process.env.RUN_MODE || env.RUN_MODE) === "development") throw _error;
 };
 
 // { Port normalizer }
@@ -25,7 +25,7 @@ const normalize_port = (_port) => {
 
 // { Normalise port }
 let ADDRESS = "";
-const PORT = normalize_port(process.env.PORT ?? process.env.APP_PORT );
+const PORT = normalize_port(process.env.APP_PORT ?? env.APP_PORT );
 
 app.set("port", PORT);
 
@@ -33,7 +33,7 @@ app.set("port", PORT);
 const server = http.createServer(app);
 server.on("listening", () => {
     ADDRESS = server.address();
-    console.log(process.env.APP_NAME+" started at ADDRESS="+ADDRESS.address+" PORT= "+PORT);
+    console.log(env.APP_NAME+" started at ADDRESS="+ADDRESS.address+" PORT= "+PORT);
 });
 
 server.on("error", error_handler);

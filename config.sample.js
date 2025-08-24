@@ -1,6 +1,8 @@
 const env = require("@encephalux/env");
 
-process.env.RUN_MODE = "development";
-env.RUN_MODE = process.env.RUN_MODE;
+env.APP_NAME = "app";
+env.APP_PORT = 3000;
+env.APP_URL_BASE = `http://localhost:${env.APP_PORT}`;
+env.RUN_MODE = "development";
 
-process.env.APP_PORT = 3000;
+module.exports = env;

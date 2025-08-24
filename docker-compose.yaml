@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   app:
-    container_name: by_main
+    container_name: nodejs_app
     build: ./docker/app
     volumes:
       - ./:/node_app
